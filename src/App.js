@@ -9,7 +9,6 @@ function App() {
 
   const handleLocationSubmit = (loc) => {
     setLocation(loc);
-    // Aqui você pode fazer a chamada à API para buscar dados climáticos
     setDashboardVisible(true); // Exibe a dashboard após a localização ser enviada
   };
 

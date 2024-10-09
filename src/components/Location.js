@@ -1,20 +1,20 @@
-// src/components/LocationPage.js
 import React, { useState, useRef } from 'react';
-import './location.css'
+import './location.css';
 import { useLoadScript, Autocomplete } from '@react-google-maps/api';
 
-const libraries = ['places']; // Carregar a biblioteca de 'places'
+const libraries = ['places'];
 
 const LocationPage = ({ onLocationSubmit }) => {
   const [location, setLocation] = useState('');
   const autocompleteRef = useRef(null);
 
-  // Carregar o script do Google Maps Places
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY, // Certifique-se de que essa chave seja configurada em um arquivo .env
+  // Carrega o script do Google Maps com a API Key
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
 
+  // Função chamada quando um lugar é selecionado no autocomplete
   const handlePlaceSelect = () => {
     const place = autocompleteRef.current.getPlace();
     if (place && place.formatted_address) {
@@ -23,6 +23,7 @@ const LocationPage = ({ onLocationSubmit }) => {
     }
   };
 
+  // Lida com o envio do formulário caso o usuário submeta a localização manualmente
   const handleSubmit = (e) => {
     e.preventDefault();
     if (location) {
@@ -30,6 +31,10 @@ const LocationPage = ({ onLocationSubmit }) => {
     }
   };
 
+  // Exibe mensagem de erro se a API falhar ao carregar
+  if (loadError) return <div>Erro ao carregar o Google Maps</div>;
+  
+  // Exibe enquanto o script está carregando
   if (!isLoaded) return <div>Carregando...</div>;
 
   return (
