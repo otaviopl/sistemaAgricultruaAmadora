@@ -19,7 +19,7 @@ const LocationPage = ({ onLocationSubmit }) => {
     const place = autocompleteRef.current.getPlace();
     if (place && place.formatted_address) {
       setLocation(place.formatted_address);
-      onLocationSubmit(place.formatted_address);
+      onLocationSubmit(place.formatted_address); // Envia a localização para o Dashboard
     }
   };
 
@@ -27,7 +27,7 @@ const LocationPage = ({ onLocationSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (location) {
-      onLocationSubmit(location);
+      onLocationSubmit(location); // Envia a localização para o Dashboard
     }
   };
 
